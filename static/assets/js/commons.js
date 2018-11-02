@@ -24,7 +24,7 @@ function show_case(case_info, id) {
         }
     }
     a.prepend("<option value='请选择' selected>请选择</option>");
-
+    
 }
 
 /*表单信息异步传输*/
@@ -200,6 +200,7 @@ function case_ajax(type, editor) {
     var validate = $("#form_validate").serializeJSON();
     var parameters = $('#form_params').serializeJSON();
     var hooks = $('#form_hooks').serializeJSON();
+    var files = $('#form_request_files').serializeJSON();
     var include = [];
     var i = 0;
     $("ul#pre_case li a").each(function () {
@@ -216,7 +217,8 @@ function case_ajax(type, editor) {
                 "method": method.method,
                 "headers": headers,
                 "type": dataType.DataType,
-                "request_data": request_data
+                "request_data": request_data,
+                'files':files
             },
             "extract": extract,
             "validate": validate,

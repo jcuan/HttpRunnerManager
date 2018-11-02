@@ -270,6 +270,20 @@ def case_info_logic(type=True, **kwargs):
 
         request_data = test.get('request').pop('request_data')
         data_type = test.get('request').pop('type')
+
+        #处理上传的文件
+        files = test.get('request').pop('files')
+        files = files.pop('test') if files else None
+
+        filesFinal = {}
+        if files:
+            for ele in files:
+                if 'key' not in ele or 'value' not in ele:
+                    return '上传格式错误，必须有key和value'
+                filesFinal[ele['key']] = ele['value']
+            if filesFinal:
+                test.get('request').setdefault('files',filesFinal) 
+
         if request_data and data_type:
             if data_type == 'json':
                 test.get('request').setdefault(data_type, request_data)
